@@ -1,0 +1,21 @@
+# never
+.secrets/
+*key*.txt
+*.env
+
+# bulk output
+*.png
+*.jpg
+log.txt
+__pycache__/
+*.pyc
+*.egg-info/
+
+# the simulator environment on Della lives inside the clone (scripts/della_firelab_setup.sh)
+pyk310/
+kindergarden/
+.cache/
+.conda_pkgs/
+
+# saved games stay out of git for now (A84); the rows files are kept
+fastenough/research/fire/results/firelab_sim/*/games/

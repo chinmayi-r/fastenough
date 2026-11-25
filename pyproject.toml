@@ -1,0 +1,17 @@
+# Lets `pip install -e .` put the package on the path, in place of setting PYTHONPATH to this folder.
+# The simulator (kinder) is not listed here: scripts/della_firelab_setup.sh installs it at the commit we use.
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fastenough"
+version = "0.1.0"
+description = "Tasks where the world keeps moving while the agent thinks. First task: fire in the lab room."
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+include = ["fastenough*"]
+
+[tool.setuptools.package-data]
+fastenough = ["tasks/fire/PROGRAM_API.md"]
