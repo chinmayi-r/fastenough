@@ -1,15 +1,15 @@
-"""Tests for firelab.env (chunk 2). Each env takes about 6 s to build, so three are shared.
+"""Tests for fastenough.tasks.fire.env (chunk 2). Each env takes about 6 s to build, so three are shared.
 
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_env.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_env.py
 """
 
 import gymnasium
 import numpy as np
 import pytest
 
-import firelab  # noqa: F401  registers the ids and applies the Windows shim
-from firelab.env import FireLab3DEnv, FireLabConfig, FireLabObjectCentricState
-from firelab.fire import BLOCKED, BURNING, FireGridConfig
+import fastenough.tasks.fire  # noqa: F401  registers the ids and applies the Windows shim
+from fastenough.tasks.fire.env import FireLab3DEnv, FireLabConfig, FireLabObjectCentricState
+from fastenough.tasks.fire.fire import BLOCKED, BURNING, FireGridConfig
 
 ZERO = np.zeros(11, dtype=np.float32)
 

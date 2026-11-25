@@ -5,8 +5,8 @@ The current-fire planner is charged 0, 2, 20 and 100 ticks per decision. One CSV
 rule set, seed) holds the score of every agent in that room, so single rooms can be inspected; the
 report averages them. A stopped run resumes from the rows already written.
 
-Run:    venv_kinder\\Scripts\\python.exe -m firelab.gate_clock --workers 10
-Report: venv_kinder\\Scripts\\python.exe -m firelab.gate_clock --report-only
+Run:    venv_kinder\\Scripts\\python.exe -m fastenough.research.fire.gate_clock --workers 10
+Report: venv_kinder\\Scripts\\python.exe -m fastenough.research.fire.gate_clock --report-only
 Slow fire: add  --p-spread 0.005 --max-ticks 1500 --tag slow --seeds 25
 """
 
@@ -21,7 +21,7 @@ from pathlib import Path
 
 import numpy as np
 
-from firelab.gate import EXIT_RULES, Task, evaluate, paired_interval
+from fastenough.tasks.fire.gate import EXIT_RULES, Task, evaluate, paired_interval
 
 RULES = {"items": (6, 8), "values": ((5, 1), (1, 2, 3, 5, 8)), "drain": (0.02, 1.0), "end_coverage": (0.5, 0.8)}
 FIXED = {"bag": True, "pick_ticks": 10, "hp_loss": 2.0}

@@ -2,7 +2,7 @@
 
   model_every_command   the model is asked before every command and the robot stands while it answers. The
                         blocking baseline: the kind of agent RRARA's first table shows losing to the clock.
-  rrara_v1              RRARA version 1 on this task. Our rule (firelab.agents.reflex_choice) picks the command
+  rrara_v1              RRARA version 1 on this task. Our rule (fastenough.tasks.fire.agents.reflex_choice) picks the command
                         and it starts at once; the model is asked, in the background, whether that command is
                         valid, and if not, for a replacement. At the next decision an invalid answer's replacement
                         is taken in place of the rule's choice if it is still on the menu; otherwise the rule
@@ -19,10 +19,10 @@ depend on the model, so making the call first and working out when its answer ex
 
 from __future__ import annotations
 
-from firelab.agents import reflex_choice
-from firelab.clock import ticks
-from firelab.interface import Session
-from firelab.text import describe, say
+from fastenough.tasks.fire.agents import reflex_choice
+from fastenough.tasks.fire.clock import ticks
+from fastenough.tasks.fire.interface import Session
+from fastenough.tasks.fire.text import describe, say
 
 ASK = "Choose the one option that will bank the most value before the episode ends."
 CHECK = ("A fast rule has already started a command. Judge it: answer A if it is the best option now; otherwise choose "

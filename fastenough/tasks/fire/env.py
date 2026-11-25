@@ -9,7 +9,7 @@ is the health fraction left.
 
 Level 2 so far is the room only (chunk 3e, A71): one partition with one 0.8 m doorway, the base stopped
 by partition, furniture and the edge of the floor, a safe strip, and the rule check's ignition, so
-that room `seed` here is room `seed` in firelab/gate.py. Chunk 3f adds the items (firelab/items.py):
+that room `seed` here is room `seed` in fastenough/tasks/fire/gate.py. Chunk 3f adds the items (fastenough/tasks/fire/items.py):
 a gripper "close" starts a pick, "open" starts a drop, the episode also ends when half the floor burns,
 and the score is the value banked in the safe strip over the value on the floor at reset.
 """
@@ -32,9 +32,9 @@ from kinder.envs.kinematic3d.prpl3d import (
     PrplLab3DEnvConfig,
     PrplLab3DObjectCentricState,
 )
-from firelab.fire import BLOCKED, BURNING, FireGrid, FireGridConfig
-from firelab.items import FLOOR, SAVED, ItemRules, Items
-from firelab.types import FIRELAB_TYPE_FEATURES, JOBS, FireCellType, ItemType, StatusType, cell_name, item_name
+from fastenough.tasks.fire.fire import BLOCKED, BURNING, FireGrid, FireGridConfig
+from fastenough.tasks.fire.items import FLOOR, SAVED, ItemRules, Items
+from fastenough.tasks.fire.types import FIRELAB_TYPE_FEATURES, JOBS, FireCellType, ItemType, StatusType, cell_name, item_name
 
 
 @dataclass(frozen=True)

@@ -1,20 +1,20 @@
-"""Tests for firelab.programs (chunk 7c). One 8-item room is built; room 0 is played twice (about 15 s).
+"""Tests for fastenough.tasks.fire.programs (chunk 7c). One 8-item room is built; room 0 is played twice (about 15 s).
 
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_programs.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_programs.py
 """
 
 from pathlib import Path
 
 import pytest
 
-import firelab  # noqa: F401
-from firelab.agents import reflex
-from firelab.env import FireLab3DEnv
-from firelab.interface import Session
-from firelab.programs import audit_program, load_program, run_program
-from firelab.skills import Skills
+import fastenough.tasks.fire  # noqa: F401
+from fastenough.tasks.fire.agents import reflex
+from fastenough.tasks.fire.env import FireLab3DEnv
+from fastenough.tasks.fire.interface import Session
+from fastenough.tasks.fire.programs import audit_program, load_program, run_program
+from fastenough.tasks.fire.skills import Skills
 
-EXAMPLE = Path(__file__).parent / "examples" / "reflex_program.py"
+EXAMPLE = Path(__file__).parents[1] / "examples" / "reflex_program.py"
 
 
 def test_the_loader_refuses_programs_that_reach_outside(tmp_path):

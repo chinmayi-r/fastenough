@@ -1,9 +1,9 @@
 """The two agents every result is measured against: random and the reflex. Copies of the rule check's.
 
-Each agent takes a "body": something with the skills of firelab.skills.Skills (walk, get, home, pick,
+Each agent takes a "body": something with the skills of fastenough.tasks.fire.skills.Skills (walk, get, home, pick,
 drop, wait) and the few things an agent may look at (live, value, carrying, cell, item_cell, over,
 ticks). Two bodies exist: Skills, which is the robot in the simulator, and GateSkills below, which is
-the robot on the rule check's board (firelab/gate.py). So the same agent code runs in both worlds, and
+the robot on the rule check's board (fastenough/tasks/fire/gate.py). So the same agent code runs in both worlds, and
 each run leaves a log, one line per command: (command, item, tick when it ended, Result).
 """
 
@@ -15,8 +15,8 @@ import math
 
 import numpy as np
 
-from firelab import gate
-from firelab.skills import Result
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.skills import Result
 
 
 def reflex(body, log: list | None = None, until: float = math.inf) -> list:
@@ -78,7 +78,7 @@ def random_agent(body, seed: int, log: list | None = None) -> list:
 
 
 class GateSkills:
-    """The same skills on the rule check's board: every method hands over to the function in firelab/gate.py."""
+    """The same skills on the rule check's board: every method hands over to the function in fastenough/tasks/fire/gate.py."""
 
     def __init__(self, world: gate.World) -> None:
         self.w, self.s = world, gate.State(world.start)

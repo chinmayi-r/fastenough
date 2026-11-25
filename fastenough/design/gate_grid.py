@@ -1,12 +1,12 @@
 """Search the rule sets for ones that pass the gate, instead of hand-picking rows.
 
-Every combination of the knobs in GRID is played by the five agents of firelab/gate.py on the same
+Every combination of the knobs in GRID is played by the five agents of fastenough/tasks/fire/gate.py on the same
 seeds. One CSV row per rule set is written as soon as it finishes, so a stopped run resumes where it
 left off. The report sorts by the gap between the planner that sees only the current fire and the
 reflex, and shows only rule sets where the reflex scores at or below --max-reflex.
 
-Run:    venv_kinder\\Scripts\\python.exe -m firelab.gate_grid --workers 6
-Report: venv_kinder\\Scripts\\python.exe -m firelab.gate_grid --report-only
+Run:    venv_kinder\\Scripts\\python.exe -m fastenough.design.gate_grid --workers 6
+Report: venv_kinder\\Scripts\\python.exe -m fastenough.design.gate_grid --report-only
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ import time
 from multiprocessing import Pool
 from pathlib import Path
 
-from firelab.gate import Task, evaluate, paired_interval
+from fastenough.tasks.fire.gate import Task, evaluate, paired_interval
 
 GRID = {
     "items": (6, 8),
@@ -31,7 +31,7 @@ GRID = {
 FIXED = {"layout": "two_narrow", "hp_loss": 2.0}  # the Nov 22 grid ran on the 0.4 m doorways (not buildable, A69)
 AGENTS = ("random", "reflex", "reflex_vpt", "planner_now", "planner_all")
 EXTRA = ("gap_now", "gap_now_lo", "gap_now_hi", "gap_all", "gap_now_vpt", "end_s", "seconds")
-OUT = Path(__file__).resolve().parent / "results" / "firelab_gate" / "grid.csv"
+OUT = Path(__file__).resolve().parents[1] / "research" / "fire" / "results" / "firelab_gate" / "grid.csv"
 
 
 def run_one(job: tuple) -> dict:

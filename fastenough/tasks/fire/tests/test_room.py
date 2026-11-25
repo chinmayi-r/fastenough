@@ -1,16 +1,16 @@
 """Tests for the level-2 room (chunk 3e): partition, base collisions, the fence, the safe strip, ignition.
 
 One room is built (about 6 s) and shared by every test.
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_room.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_room.py
 """
 
 import numpy as np
 import pytest
 
-import firelab  # noqa: F401  registers the ids and applies the Windows shim
-from firelab import gate
-from firelab.env import LEVEL2, ONE_DOORWAY, FireLab3DEnv
-from firelab.fire import BLOCKED, BURNING
+import fastenough.tasks.fire  # noqa: F401  registers the ids and applies the Windows shim
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.env import LEVEL2, ONE_DOORWAY, FireLab3DEnv
+from fastenough.tasks.fire.fire import BLOCKED, BURNING
 
 STEP = 0.05  # metres per tick, the base's top speed
 

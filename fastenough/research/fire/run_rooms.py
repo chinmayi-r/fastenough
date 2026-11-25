@@ -1,16 +1,16 @@
 """Play rooms in the simulator with any of the agents, optionally the same rooms on the rule check's board.
 
-Agents: random, reflex (firelab/agents.py); always, commit, moving (firelab/thinkers.py), under a clock
-(firelab/clock.py: off, declared, measured, fixed).
+Agents: random, reflex (fastenough/tasks/fire/agents.py); always, commit, moving (fastenough/tasks/fire/thinkers.py), under a clock
+(fastenough/tasks/fire/clock.py: off, declared, measured, fixed).
 
-A run is a folder firelab/results/firelab_sim/<tag>/ holding
+A run is a folder fastenough/research/fire/results/firelab_sim/<tag>/ holding
   rows_<first room>.csv   one row per room and agent: the scores, the ticks, the thinking in both costs;
   games/room_NNN_<agent>.jsonl   the game, decision by decision: what the agent saw, what it planned, how long
                           it thought (measured and declared), every command and its result (CR, Nov 23).
 Each invocation appends to its own rows file, so rooms can run in parallel, one process per room (Della).
 
-Run:    venv_kinder\\Scripts\\python.exe -m firelab.run_rooms --tag run1_off --agents always --clock off --rooms 50
-Report: venv_kinder\\Scripts\\python.exe -m firelab.run_rooms --tag run1_off --report-only
+Run:    venv_kinder\\Scripts\\python.exe -m fastenough.research.fire.run_rooms --tag run1_off --agents always --clock off --rooms 50
+Report: venv_kinder\\Scripts\\python.exe -m fastenough.research.fire.run_rooms --tag run1_off --report-only
 """
 
 from __future__ import annotations
@@ -25,18 +25,18 @@ from pathlib import Path
 
 import numpy as np
 
-import firelab  # noqa: F401
-from firelab import gate
-from firelab.agents import GateSkills, random_agent, reflex
-from firelab.clock import SECONDS_PER_STEP, Clock
-from firelab.env import FireLab3DEnv
-from firelab.interface import Session
-from firelab.model_agents import AGENTS as MODEL_AGENTS
-from firelab.models import cost_usd, make_model
-from firelab.planner import plan
-from firelab.skills import Skills
-from firelab.thinkers import AGENTS as THINKERS
-from firelab.thinkers import thinker
+import fastenough.tasks.fire  # noqa: F401
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.agents import GateSkills, random_agent, reflex
+from fastenough.tasks.fire.clock import SECONDS_PER_STEP, Clock
+from fastenough.tasks.fire.env import FireLab3DEnv
+from fastenough.tasks.fire.interface import Session
+from fastenough.research.fire.model_agents import AGENTS as MODEL_AGENTS
+from fastenough.research.fire.models import cost_usd, make_model
+from fastenough.tasks.fire.planner import plan
+from fastenough.tasks.fire.skills import Skills
+from fastenough.tasks.fire.thinkers import AGENTS as THINKERS
+from fastenough.tasks.fire.thinkers import thinker
 
 AGENTS = ["random", "reflex", *THINKERS, *MODEL_AGENTS]
 COLUMNS = ["room", "agent", "clock", "sim", "rule", "sim_ticks", "rule_ticks", "health", "commands", "thoughts",
@@ -161,7 +161,7 @@ def report(rows: list) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--tag", default="run", help="the run's folder under firelab/results/firelab_sim/")
+    ap.add_argument("--tag", default="run", help="the run's folder under fastenough/research/fire/results/firelab_sim/")
     ap.add_argument("--agents", nargs="+", default=["random", "reflex"], choices=AGENTS)
     ap.add_argument("--clock", default="off", choices=["off", "declared", "measured", "fixed"])
     ap.add_argument("--fixed-ticks", type=int, default=0)

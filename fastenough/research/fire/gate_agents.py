@@ -1,14 +1,14 @@
 """Three ways to spend thinking time, on the chosen layout: who still beats the reflex at which cost?
 
 Layout (CR, Nov 23): one partition with one 0.8 m doorway, robot width counted, items picked from a
-neighbouring cell. Agents, all planning from the fire as it is now (firelab.gate.thinker):
+neighbouring cell. Agents, all planning from the fire as it is now (fastenough.tasks.fire.gate.thinker):
   always  think before every action, standing still        (the always-deliberate baseline)
   commit  think once, follow the plan, think again only when blocked   (agent A)
   moving  as commit, but the reflex acts during every thought          (agent B)
 One CSV row per room; the report has one row per rule set.
 
-Run:    venv_kinder\\Scripts\\python.exe -m firelab.gate_agents --workers 10
-Report: venv_kinder\\Scripts\\python.exe -m firelab.gate_agents --report-only
+Run:    venv_kinder\\Scripts\\python.exe -m fastenough.research.fire.gate_agents --workers 10
+Report: venv_kinder\\Scripts\\python.exe -m fastenough.research.fire.gate_agents --report-only
 """
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ from pathlib import Path
 
 import numpy as np
 
-from firelab.gate import Task, make_world, paired_interval, reflex, thinker, unreachable
+from fastenough.tasks.fire.gate import Task, make_world, paired_interval, reflex, thinker, unreachable
 
 TASK = {"layout": "one_wide", "clearance": True, "reach": 1, "bag": True, "pick_ticks": 10, "hp_loss": 2.0}
 RULES = [(items, values) for items in (6, 8) for values in ((5, 1), (1, 2, 3, 5, 8))]

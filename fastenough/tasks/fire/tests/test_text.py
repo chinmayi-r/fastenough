@@ -1,19 +1,19 @@
-"""Tests for firelab.text (chunk 7b). One 6-item room with the fire frozen is built (about 6 s).
+"""Tests for fastenough.tasks.fire.text (chunk 7b). One 6-item room with the fire frozen is built (about 6 s).
 
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_text.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_text.py
 """
 
 import dataclasses
 
 import pytest
 
-import firelab  # noqa: F401
-from firelab.env import LEVEL2, FireLab3DEnv
-from firelab.fire import BURNING, FireGridConfig
-from firelab.interface import Session
-from firelab.items import ItemRules
-from firelab.skills import Skills
-from firelab.text import describe, room_map, say
+import fastenough.tasks.fire  # noqa: F401
+from fastenough.tasks.fire.env import LEVEL2, FireLab3DEnv
+from fastenough.tasks.fire.fire import BURNING, FireGridConfig
+from fastenough.tasks.fire.interface import Session
+from fastenough.tasks.fire.items import ItemRules
+from fastenough.tasks.fire.skills import Skills
+from fastenough.tasks.fire.text import describe, room_map, say
 
 
 @pytest.fixture(scope="module")

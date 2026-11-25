@@ -1,19 +1,26 @@
-# The fire task (firelab)
+# fastenough
 
-**What this is.** A robot in a room where a fire spreads. It picks up items and carries them to a safe strip before
-the room burns. The fire keeps spreading while the robot thinks, so every second of thinking has a price.
-It runs on the lab's kinder simulator (kindergarden at commit `86c55a4`, pybullet).
+**What this is.** Tasks for a robot where the world keeps moving while the robot thinks, so every second of
+thinking has a price. There is one task so far: a fire spreads in the lab room, and the robot carries items to a
+safe strip before the room burns. It runs on the lab's kinder simulator (kindergarden at commit `86c55a4`, pybullet).
 
 **What it is for.** To study when thinking is worth its time. A simple rule that never thinks and a strong model
 that thinks slowly should both fall short, so that there is something to gain from choosing between them.
 
 **Where things are.**
-- The task and the agents: this folder
-- Every run: [results/](results/)
-- What a program-writer reads: [PROGRAM_API.md](PROGRAM_API.md)
-- Plan, design and log, one level up: [PLAN.md](../PLAN.md), [DESIGN.md](../DESIGN.md), [NOTES.md](../NOTES.md), [ASSUMPTIONS.md](../ASSUMPTIONS.md)
 
-## The room
+| folder | what is in it |
+|---|---|
+| [fastenough/tasks/fire/](fastenough/tasks/fire/) | the fire task: the rules, the room, the commands, the score, the baselines, and its tests |
+| [fastenough/design/](fastenough/design/) | the tools used to choose the task's settings |
+| [fastenough/research/fire/](fastenough/research/fire/) | experiments on the fire task, their scripts and every run |
+| [llm_notes/](llm_notes/) | working notes of the coding sessions: plan, design, log of runs, numbered assumptions |
+| [scripts/](scripts/) | setting up the simulator |
+
+`tasks` imports nothing from `design` or `research`, and `design` imports nothing from `research`.
+[fastenough/test_layers.py](fastenough/test_layers.py) checks this.
+
+## The fire room
 
 - A grid of 16 columns by 15 rows; one cell is 0.2 m; one tick is 0.1 s.
 - One partition across row 5 with one doorway. Rows 11 and above are the safe strip.
@@ -23,54 +30,56 @@ that thinks slowly should both fall short, so that there is something to gain fr
 - Score = value banked on the safe strip / value on the floor at the start.
 - A room is named by a number (its seed). The same number is the same room every time.
 
-## The two versions of the room
+The room exists twice, room for room:
 
 | name | file | what it is |
 |---|---|---|
-| the rule check | [gate.py](gate.py) | a small board model of the rules, fast, used to choose the rule set |
-| the simulator | [env.py](env.py) | the actual task on kinder and pybullet |
-
-## The agents
-
-| name on the command line | what it does |
-|---|---|
-| `random` | random commands |
-| `reflex` | a simple rule: get an item, bring it home, never enter fire |
-| `always` | a planner that plans before every command |
-| `commit` | a planner that plans once and follows the plan |
-| `moving` | the reflex acts while the planner plans |
-| `model` | a language model is asked before every command; the robot waits for the answer |
-| `rrara1` | the rule acts and a language model checks its action in the background (RRARA, version 1) |
-| a program | a Python file with no model call, see [PROGRAM_API.md](PROGRAM_API.md) and [examples/](examples/) |
-
-The clock: thinking time is charged in ticks, ticks = ceil(seconds x 10). `--clock off` charges nothing,
-`declared` charges a stated cost, `measured` charges the real time.
+| the rule check | [gate.py](fastenough/tasks/fire/gate.py) | a small board model of the rules, fast, used to choose the rule set |
+| the simulator | [env.py](fastenough/tasks/fire/env.py) | the actual task on kinder and pybullet |
 
 ## How to run it
 
-Set up the environment once with [scripts/della_firelab_setup.sh](../scripts/della_firelab_setup.sh). Then, from the
-top of the repository with `PYTHONPATH` set to it:
+Set up the simulator once with [scripts/della_firelab_setup.sh](scripts/della_firelab_setup.sh). Then, from the top
+of the repository with `PYTHONPATH` set to it:
 
 ```
-python -m pytest -q firelab
-python -m firelab.run_rooms --tag my_run --agents random reflex --first 0 --rooms 5
-python -m firelab.run_rooms --tag my_planner --agents always --clock declared --first 0 --rooms 5
-python -m firelab.validate --program firelab/examples/reflex_program.py --first 50 --rooms 5 --out my_program.json
+python -m pytest -q fastenough
+python -m fastenough.tasks.fire.validate --program fastenough/tasks/fire/examples/reflex_program.py --first 50 --rooms 5 --out my_program.json
+python -m fastenough.research.fire.run_rooms --tag my_run --agents random reflex --first 0 --rooms 5
 ```
 
-A run named `my_run` writes into `firelab/results/firelab_sim/my_run/`. A model agent also needs `--model` and
-`--key-file`; `python -m firelab.run_rooms --help` lists every setting.
+- The second line plays a program and the reflex on the same rooms and writes the scores to the file you name.
+- The third line is the research runner. A run named `my_run` writes into
+  `fastenough/research/fire/results/firelab_sim/my_run/`. `--help` lists every setting.
+
+## How to add an agent
+
+Write a program: one Python file with a class `Policy` that has `decide(obs)`. What it sees and what it may answer
+is in [PROGRAM_API.md](fastenough/tasks/fire/PROGRAM_API.md). A worked example is
+[examples/reflex_program.py](fastenough/tasks/fire/examples/reflex_program.py). Play it with the second line above.
+
+## The agents that exist
+
+| name | where | what it does |
+|---|---|---|
+| `random`, `reflex` | [tasks/fire/agents.py](fastenough/tasks/fire/agents.py) | random commands; a simple rule that gets an item, brings it home and never enters fire |
+| `always`, `commit`, `moving` | [tasks/fire/thinkers.py](fastenough/tasks/fire/thinkers.py) | a planner before every command; a planner that plans once; the reflex acting while the planner plans |
+| `model`, `rrara1` | [research/fire/model_agents.py](fastenough/research/fire/model_agents.py) | a language model asked before every command; the rule acting while a model checks it in the background |
+| a program | [tasks/fire/programs.py](fastenough/tasks/fire/programs.py) | a Python file with no model call |
+
+Thinking time is charged in ticks, ticks = ceil(seconds x 10) ([clock.py](fastenough/tasks/fire/clock.py)).
 
 ## Where the results are
 
 | folder | what is in it |
 |---|---|
-| [results/firelab_sim/](results/firelab_sim/) | the simulator runs. One folder per run, with one row per room and agent in `rows_*.csv`. The saved games are not in git. |
-| [results/firelab_gate/](results/firelab_gate/) | the rule check's files |
-| [results/firelab_compiled/](results/firelab_compiled/) | programs written before the game by a model, and their test files |
+| [results/firelab_sim/](fastenough/research/fire/results/firelab_sim/) | the simulator runs. One folder per run, one row per room and agent in `rows_*.csv`. The saved games are not in git. |
+| [results/firelab_gate/](fastenough/research/fire/results/firelab_gate/) | the rule check's files |
+| [results/firelab_compiled/](fastenough/research/fire/results/firelab_compiled/) | programs written before the game by a model, and their test files |
 
-Scripts that read these files and play nothing:
-- [scripts/all_agents_table.py](../scripts/all_agents_table.py): every agent on rooms 0 to 49 in one table
-- [scripts/gap_table.py](../scripts/gap_table.py): every run against the reflex
-- [scripts/liane_summary.py](../scripts/liane_summary.py): a program on rooms 50 to 99 beside the other agents
-- [scripts/run_summary.py](../scripts/run_summary.py), [scripts/model_run_summary.py](../scripts/model_run_summary.py): one run in detail
+Scripts in [fastenough/research/fire/scripts/](fastenough/research/fire/scripts/) read these files and play nothing:
+`all_agents_table.py` (every agent on rooms 0 to 49), `gap_table.py` (every run against the reflex),
+`liane_summary.py` (a program on rooms 50 to 99 beside the other agents), `run_summary.py` and
+`model_run_summary.py` (one run in detail).
+
+The earlier work on the HAZARD benchmark is in a separate repository, `thinking-fast-hazard`.

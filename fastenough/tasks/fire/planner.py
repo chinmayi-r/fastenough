@@ -15,9 +15,9 @@ from __future__ import annotations
 import copy
 import math
 
-from firelab import gate
-from firelab.fire import BLOCKED, BURNING
-from firelab.items import BAG, FLOOR, SAVED
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.fire import BLOCKED, BURNING
+from fastenough.tasks.fire.items import BAG, FLOOR, SAVED
 
 
 def plan(w: gate.World, start: gate.State, foresight: bool = True, cross_fire: bool = True, max_bag: int | None = None) -> tuple:

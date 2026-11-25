@@ -1,6 +1,6 @@
 """The interface every outside agent sits on (chunk 7a): the room as one dictionary, and the commands.
 
-A Session wraps the robot in the simulator (firelab.skills.Skills). An agent that is not ours (a compiled
+A Session wraps the robot in the simulator (fastenough.tasks.fire.skills.Skills). An agent that is not ours (a compiled
 program, a language model, RRARA's checker) never touches the simulator: it reads `observe()` and answers with
 a command, which `do()` carries out through the skills and answers with Result(ticks, done, reason).
 
@@ -18,9 +18,9 @@ The room is fully observed: every item and every burning cell is in the dictiona
 
 from __future__ import annotations
 
-from firelab.fire import BLOCKED, BURNING
-from firelab.items import BAG, FLOOR, LOST, SAVED
-from firelab.skills import Result, Skills
+from fastenough.tasks.fire.fire import BLOCKED, BURNING
+from fastenough.tasks.fire.items import BAG, FLOOR, LOST, SAVED
+from fastenough.tasks.fire.skills import Result, Skills
 
 API_VERSION = "1"
 WHERE = {FLOOR: "floor", BAG: "bag", SAVED: "saved", LOST: "lost"}

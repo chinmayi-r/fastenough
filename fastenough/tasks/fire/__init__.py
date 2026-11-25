@@ -1,8 +1,8 @@
-"""firelab: a spreading-fire task in the PRPL lab room, on kinder's PrplLab3D simulator.
+"""The fire task (first built as the package firelab): a spreading-fire task in the PRPL lab room, on kinder's PrplLab3D simulator.
 
 Importing this package registers the gymnasium ids below, so
-    import firelab; gymnasium.make("firelab/FireLab3D-l1-v0")
-works, and so does gymnasium's import-prefix form "firelab:firelab/FireLab3D-l1-v0" with no
+    import fastenough.tasks.fire; gymnasium.make("firelab/FireLab3D-l1-v0")
+works, and so does gymnasium's import-prefix form "fastenough.tasks.fire:firelab/FireLab3D-l1-v0" with no
 import of our own (A56; how prpl-tidybot's KinderSimEnv will reach us, to verify in chunk 7).
 """
 
@@ -32,7 +32,7 @@ def register_environments() -> None:
     }
     for env_id, kwargs in variants.items():
         if env_id not in registry:
-            register(id=env_id, entry_point="firelab.env:FireLab3DEnv", kwargs=kwargs)
+            register(id=env_id, entry_point="fastenough.tasks.fire.env:FireLab3DEnv", kwargs=kwargs)
         if env_id not in ENV_IDS:
             ENV_IDS.append(env_id)
 

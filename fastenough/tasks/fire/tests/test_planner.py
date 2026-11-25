@@ -1,19 +1,19 @@
-"""Tests for firelab.planner (chunk 6a): the counted search is the rule check's, and the board built in the simulator is too.
+"""Tests for fastenough.tasks.fire.planner (chunk 6a): the counted search is the rule check's, and the board built in the simulator is too.
 
 One 6-item room is built (about 6 s); 6 items keep each plan at a few hundredths of a second.
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_planner.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_planner.py
 """
 
 import math
 
 import pytest
 
-import firelab  # noqa: F401
-from firelab import gate
-from firelab.agents import GateSkills
-from firelab.env import FireLab3DEnv
-from firelab.planner import plan
-from firelab.skills import Skills
+import fastenough.tasks.fire  # noqa: F401
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.agents import GateSkills
+from fastenough.tasks.fire.env import FireLab3DEnv
+from fastenough.tasks.fire.planner import plan
+from fastenough.tasks.fire.skills import Skills
 
 RULES = {"values": (1, 2, 3, 5, 8), "layout": "one_wide", "clearance": True, "reach": 1, "bag": True, "hp_loss": 2.0}
 SIX = gate.Task(items=6, **RULES)

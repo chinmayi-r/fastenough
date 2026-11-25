@@ -1,19 +1,19 @@
-"""Tests for firelab.skills (chunk 4): routes, walking, get, home, and honest failures.
+"""Tests for fastenough.tasks.fire.skills (chunk 4): routes, walking, get, home, and honest failures.
 
 One room is built (about 6 s). Its fire is frozen (p_spread = 0), so every tick count below is exact.
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_skills.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_skills.py
 """
 
 import dataclasses
 
 import pytest
 
-import firelab  # noqa: F401
-from firelab import gate
-from firelab.env import LEVEL2, FireLab3DEnv
-from firelab.fire import BURNING, NORMAL, FireGridConfig
-from firelab.items import BAG, SAVED, ItemRules
-from firelab.skills import Result, Skills
+import fastenough.tasks.fire  # noqa: F401
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.env import LEVEL2, FireLab3DEnv
+from fastenough.tasks.fire.fire import BURNING, NORMAL, FireGridConfig
+from fastenough.tasks.fire.items import BAG, SAVED, ItemRules
+from fastenough.tasks.fire.skills import Result, Skills
 
 ROOM = 2  # with 6 items: fire at (13, 3); items at (13, 10), (4, 9), (3, 3), (13, 4), (2, 1), (4, 7) worth 3, 3, 1, 8, 5, 5
 

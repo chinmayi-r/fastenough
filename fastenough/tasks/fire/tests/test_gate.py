@@ -1,11 +1,11 @@
-"""Tests for firelab.gate. Pure Python, no simulator.
+"""Tests for fastenough.tasks.fire.gate. Pure Python, no simulator.
 
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_gate.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_gate.py
 """
 
 import math
 
-from firelab.gate import (
+from fastenough.tasks.fire.gate import (
     FRONT_TICKS, START, State, Task, build, by_value_per_tick, forecast, make_world,
     planner_all, planner_now, random_agent, reflex, route, spend, value,
 )
@@ -126,7 +126,7 @@ def test_exit_rules_and_the_clock():
 
 
 def test_reach_lets_the_robot_pick_from_a_neighbouring_cell_and_nothing_is_unreachable():
-    from firelab.gate import act, unreachable, within_reach
+    from fastenough.tasks.fire.gate import act, unreachable, within_reach
     w = _corridor(Task(reach=1), items=((3, 0),))
     s = State((0, 0))
     assert within_reach(w, 0)((2, 0)) and not within_reach(w, 0)((1, 0))
@@ -138,14 +138,14 @@ def test_reach_lets_the_robot_pick_from_a_neighbouring_cell_and_nothing_is_unrea
 
 
 def test_plan_returns_every_action_in_order():
-    from firelab.gate import plan
+    from fastenough.tasks.fire.gate import plan
     w = _with_strip(Task(max_ticks=60, bag=True), items=(2, 4), values=(1.0, 1.0))
     best, actions = plan(w, State(w.start))
     assert best == 2.0 and [a[0] for a in actions] == ["get", "get", "home"]
 
 
 def test_three_ways_to_think_agree_when_thinking_is_free_and_split_when_it_costs():
-    from firelab.gate import thinker
+    from fastenough.tasks.fire.gate import thinker
     calm = make_world(Task(items=3, p_spread=0.0, bag=True), 1)
     for kind in ({}, {"commit": True}, {"commit": True, "moving": True}):
         assert thinker(calm, 0, **kind) == 1.0 and thinker(calm, 20, **kind) == 1.0  # no fire, time to spare

@@ -5,8 +5,8 @@ of its commands were illegal or raised, the number of decisions and the time `de
 same rooms, so each room shows both scores. The file written is what the next writing round reads, and with
 --first 50 --rooms 50 it is also the final test.
 
-Run:  python -m firelab.validate --program firelab/results/firelab_compiled/v1/policy_round1.py --first 110 --rooms 10 \\
-          --out firelab/results/firelab_compiled/v1/validation_round1.json
+Run:  python -m fastenough.tasks.fire.validate --program fastenough/research/fire/results/firelab_compiled/v1/policy_round1.py --first 110 --rooms 10 \\
+          --out fastenough/research/fire/results/firelab_compiled/v1/validation_round1.json
 """
 
 from __future__ import annotations
@@ -18,13 +18,13 @@ from pathlib import Path
 
 import numpy as np
 
-import firelab  # noqa: F401
-from firelab.agents import reflex
-from firelab.env import FireLab3DEnv
-from firelab.gate import paired_interval
-from firelab.interface import Session
-from firelab.programs import load_program, run_program
-from firelab.skills import Skills
+import fastenough.tasks.fire  # noqa: F401
+from fastenough.tasks.fire.agents import reflex
+from fastenough.tasks.fire.env import FireLab3DEnv
+from fastenough.tasks.fire.gate import paired_interval
+from fastenough.tasks.fire.interface import Session
+from fastenough.tasks.fire.programs import load_program, run_program
+from fastenough.tasks.fire.skills import Skills
 
 
 def play_rooms(program_path, rooms, items: int = 8, values: tuple = (1, 2, 3, 5, 8), with_reflex: bool = True) -> dict:

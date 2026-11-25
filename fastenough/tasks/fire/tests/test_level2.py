@@ -1,7 +1,7 @@
 """Tests for level 2 in the simulator (chunk 3f-2): items in the state, pick and drop, the end, the score.
 
 Two rooms are built (about 6 s each). Run:
-venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_level2.py
+venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_level2.py
 """
 
 import dataclasses
@@ -9,10 +9,10 @@ import dataclasses
 import numpy as np
 import pytest
 
-import firelab
-from firelab import gate
-from firelab.env import LEVEL2, FireLab3DEnv, level_config
-from firelab.items import BAG, FLOOR, SAVED
+import fastenough.tasks.fire
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.env import LEVEL2, FireLab3DEnv, level_config
+from fastenough.tasks.fire.items import BAG, FLOOR, SAVED
 
 MAIN = gate.Task(items=8, values=(1, 2, 3, 5, 8), layout="one_wide", clearance=True, reach=1, bag=True, hp_loss=2.0)
 STAY, NORTH, CLOSE, OPEN = (np.zeros(11, dtype=np.float32) for _ in range(4))
@@ -40,7 +40,7 @@ def _item_next_to_home(env, inner):
 
 
 def test_the_id_is_registered_and_the_settings_can_be_changed():
-    assert "firelab/FireLab3D-l2-v0" in firelab.ENV_IDS
+    assert "firelab/FireLab3D-l2-v0" in fastenough.tasks.fire.ENV_IDS
     assert level_config(2).items.count == 8 and level_config(2).items.values == (1, 2, 3, 5, 8)
     other = level_config(2, num_items=6, values=(5, 1))
     assert (other.items.count, other.items.values, other.partitions) == (6, (5, 1), LEVEL2.partitions)

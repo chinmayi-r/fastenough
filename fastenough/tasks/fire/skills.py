@@ -2,7 +2,7 @@
 
 A skill runs env.step once per tick until it is finished and returns Result(ticks, done, reason), so
 nothing here is free: walking one 0.2 m cell costs 4 ticks, a pick 10, a drop 5, as in the rule check
-(firelab/gate.py, whose route, walk, pick and drop these mirror). A skill never claims success it did
+(fastenough/tasks/fire/gate.py, whose route, walk, pick and drop these mirror). A skill never claims success it did
 not have: done is true only if the robot got there, the item is in the bag, or the bag was banked.
 
 The skills read the fire grid and the items from the env object directly; the same numbers are in the
@@ -17,9 +17,9 @@ from typing import Callable, NamedTuple
 
 import numpy as np
 
-from firelab.fire import BLOCKED, BURNING
-from firelab.items import BAG, FLOOR, SAVED
-from firelab.planner import board_from
+from fastenough.tasks.fire.fire import BLOCKED, BURNING
+from fastenough.tasks.fire.items import BAG, FLOOR, SAVED
+from fastenough.tasks.fire.planner import board_from
 
 NEIGHBOURS = ((1, 0), (-1, 0), (0, 1), (0, -1))
 Cell = tuple[int, int]
@@ -155,7 +155,7 @@ class Skills:
         return self.items.score()
 
     def believe(self, caution: float = 1.0) -> tuple:
-        """(world, state): the rule check's board as the robot sees it now, with the forecast fire (firelab.planner)."""
+        """(world, state): the rule check's board as the robot sees it now, with the forecast fire (fastenough.tasks.fire.planner)."""
         return board_from(self, caution)
 
     # the two goals agents walk to

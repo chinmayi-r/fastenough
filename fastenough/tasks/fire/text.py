@@ -2,7 +2,7 @@
 
 The rules it follows are CR's for the honest text (A32, A41): every item with its true worth, what it is losing
 and how far it is; every command with what it will cost; the last results in numbers with their reasons, the
-whole history; and a small map. Nothing is in the text that is not in firelab.interface.Session.observe().
+whole history; and a small map. Nothing is in the text that is not in fastenough.tasks.fire.interface.Session.observe().
 """
 
 from __future__ import annotations

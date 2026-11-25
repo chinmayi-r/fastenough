@@ -1,15 +1,15 @@
-"""Tests for firelab.run_rooms (chunks 5b and 6c). One 6-item room is built; room 3 is played by four agents (about 20 s).
+"""Tests for fastenough.research.fire.run_rooms (chunks 5b and 6c). One 6-item room is built; room 3 is played by four agents (about 20 s).
 
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_run_rooms.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/research/fire/tests/test_run_rooms.py
 """
 
 import json
 
-from firelab import gate
-from firelab.clock import Clock
-from firelab.env import FireLab3DEnv
-from firelab.run_rooms import COLUMNS, parted, play, reference, report
-from firelab.skills import Result, Skills
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.clock import Clock
+from fastenough.tasks.fire.env import FireLab3DEnv
+from fastenough.research.fire.run_rooms import COLUMNS, parted, play, reference, report
+from fastenough.tasks.fire.skills import Result, Skills
 
 SIX = gate.Task(items=6, values=(1, 2, 3, 5, 8), layout="one_wide", clearance=True, reach=1, bag=True, hp_loss=2.0)
 

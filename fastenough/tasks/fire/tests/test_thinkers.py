@@ -1,21 +1,21 @@
-"""Tests for firelab.clock and firelab.thinkers (chunk 6b).
+"""Tests for fastenough.tasks.fire.clock and fastenough.tasks.fire.thinkers (chunk 6b).
 
 On the rule check's board the three agents must score exactly what gate.thinker scores at the same charge.
 In the simulator each plays one 6-item room and the saved game is checked. One room is built (about 6 s).
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_thinkers.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_thinkers.py
 """
 
 import json
 
 import pytest
 
-import firelab  # noqa: F401
-from firelab import gate
-from firelab.agents import GateSkills
-from firelab.clock import Clock, ticks
-from firelab.env import FireLab3DEnv
-from firelab.skills import Skills
-from firelab.thinkers import AGENTS, thinker
+import fastenough.tasks.fire  # noqa: F401
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.agents import GateSkills
+from fastenough.tasks.fire.clock import Clock, ticks
+from fastenough.tasks.fire.env import FireLab3DEnv
+from fastenough.tasks.fire.skills import Skills
+from fastenough.tasks.fire.thinkers import AGENTS, thinker
 
 SIX = gate.Task(items=6, values=(1, 2, 3, 5, 8), layout="one_wide", clearance=True, reach=1, bag=True, hp_loss=2.0)
 

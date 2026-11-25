@@ -1,7 +1,7 @@
 """Chunk 1 measurement: how many ticks until the fire covers half the room, per p_spread?
 
 Usage (from G:\\iw-thinking-fast):
-    venv_kinder\\Scripts\\python.exe -m firelab.measure_spread [--seeds 100] [--p 0.005 0.015 ...]
+    venv_kinder\\Scripts\\python.exe -m fastenough.design.measure_spread [--seeds 100] [--p 0.005 0.015 ...]
 
 No furniture is blocked here (the env blocks cells in chunk 2), so these are upper bounds on
 the open floor. The table fixes p_spread in ASSUMPTIONS.md A57. Ticks are 0.1 s (D2).
@@ -13,7 +13,7 @@ import argparse
 
 import numpy as np
 
-from firelab.fire import FireGrid, FireGridConfig
+from fastenough.tasks.fire.fire import FireGrid, FireGridConfig
 
 
 def ticks_to_coverage(p: float, seed: int, target: float, max_ticks: int) -> tuple[int | None, int | None]:

@@ -1,21 +1,21 @@
-"""Tests for firelab.model_agents (chunk 8b). One 6-item room is built; room 3 is played with stand-in models, no network.
+"""Tests for fastenough.research.fire.model_agents (chunk 8b). One 6-item room is built; room 3 is played with stand-in models, no network.
 
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_model_agents.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/research/fire/tests/test_model_agents.py
 """
 
 import json
 
 import pytest
 
-import firelab  # noqa: F401
-from firelab import gate
-from firelab.agents import reflex
-from firelab.env import FireLab3DEnv
-from firelab.interface import Session
-from firelab.model_agents import call_cost, model_every_command, rrara_v1
-from firelab.models import Answer, Fake
-from firelab.run_rooms import COLUMNS, play
-from firelab.skills import Skills
+import fastenough.tasks.fire  # noqa: F401
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.agents import reflex
+from fastenough.tasks.fire.env import FireLab3DEnv
+from fastenough.tasks.fire.interface import Session
+from fastenough.research.fire.model_agents import call_cost, model_every_command, rrara_v1
+from fastenough.research.fire.models import Answer, Fake
+from fastenough.research.fire.run_rooms import COLUMNS, play
+from fastenough.tasks.fire.skills import Skills
 
 SIX = gate.Task(items=6, values=(1, 2, 3, 5, 8), layout="one_wide", clearance=True, reach=1, bag=True, hp_loss=2.0)
 

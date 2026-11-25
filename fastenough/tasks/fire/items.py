@@ -1,7 +1,7 @@
 """The items of level 2: where each one is and what it is worth. No simulator behind it.
 
-Like firelab/fire.py this file knows only grid cells and ticks; firelab/env.py calls it once per
-tick (chunk 3f-2). The rules are those of the rule check, firelab/gate.py, so that room `room` here has
+Like fastenough/tasks/fire/fire.py this file knows only grid cells and ticks; fastenough/tasks/fire/env.py calls it once per
+tick (chunk 3f-2). The rules are those of the rule check, fastenough/tasks/fire/gate.py, so that room `room` here has
 the same items as room `room` there (A72):
   - an item lying on a burning cell loses `drain` of its starting value per tick;
   - a pick takes `pick_ticks`, from the item's cell or one next to it, and puts the item in the bag;

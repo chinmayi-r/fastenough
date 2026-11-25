@@ -1,19 +1,19 @@
-"""Tests for firelab.agents (chunk 5a): the two agents are true copies, and the two worlds agree when the fire is still.
+"""Tests for fastenough.tasks.fire.agents (chunk 5a): the two agents are true copies, and the two worlds agree when the fire is still.
 
 One room is built (about 6 s), with the fire frozen (p_spread = 0).
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_agents.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_agents.py
 """
 
 import dataclasses
 
 import pytest
 
-import firelab  # noqa: F401
-from firelab import gate
-from firelab.agents import GateSkills, random_agent, reflex
-from firelab.env import LEVEL2, FireLab3DEnv
-from firelab.fire import FireGridConfig
-from firelab.skills import Skills
+import fastenough.tasks.fire  # noqa: F401
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.agents import GateSkills, random_agent, reflex
+from fastenough.tasks.fire.env import LEVEL2, FireLab3DEnv
+from fastenough.tasks.fire.fire import FireGridConfig
+from fastenough.tasks.fire.skills import Skills
 
 MAIN = gate.Task(items=8, values=(1, 2, 3, 5, 8), layout="one_wide", clearance=True, reach=1, bag=True, hp_loss=2.0)
 STILL = dataclasses.replace(MAIN, p_spread=0.0)  # the same rooms with a fire that never spreads

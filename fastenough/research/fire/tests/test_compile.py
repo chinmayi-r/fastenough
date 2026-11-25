@@ -1,7 +1,7 @@
-"""Tests for firelab.compile and firelab.validate (Liane's method, offline; A99). No network.
+"""Tests for fastenough.research.fire.compile and fastenough.tasks.fire.validate (Liane's method, offline; A99). No network.
 
 The writing step is driven by a stand-in for the model; one 6-item room is built to play three rooms (about 20 s).
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_compile.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/research/fire/tests/test_compile.py
 """
 
 import json
@@ -9,13 +9,13 @@ from pathlib import Path
 
 import pytest
 
-from firelab import gate
-from firelab.compile import EXAMPLE, build_prompt, compile_round, extract_module, main, render_game
-from firelab.env import FireLab3DEnv
-from firelab.models import Fake, cost_usd
-from firelab.run_rooms import play
-from firelab.skills import Skills
-from firelab.validate import play_rooms
+from fastenough.tasks.fire import gate
+from fastenough.research.fire.compile import EXAMPLE, build_prompt, compile_round, extract_module, main, render_game
+from fastenough.tasks.fire.env import FireLab3DEnv
+from fastenough.research.fire.models import Fake, cost_usd
+from fastenough.research.fire.run_rooms import play
+from fastenough.tasks.fire.skills import Skills
+from fastenough.tasks.fire.validate import play_rooms
 
 SIX = gate.Task(items=6, values=(1, 2, 3, 5, 8), layout="one_wide", clearance=True, reach=1, bag=True, hp_loss=2.0)
 

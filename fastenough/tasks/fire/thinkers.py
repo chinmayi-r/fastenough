@@ -7,17 +7,17 @@
                                reflex-while-planning agent).
 None of the three is RRARA (Zheng et al. 2025): RRARA version 1 is a rule that acts plus a language model that
 checks the rule's action in the background; its spec for this task is PLAN.md section 7 (CR, Nov 23).
-Each thought is costed by a Clock (firelab/clock.py) and recorded with what the agent saw, for the saved games.
+Each thought is costed by a Clock (fastenough/tasks/fire/clock.py) and recorded with what the agent saw, for the saved games.
 """
 
 from __future__ import annotations
 
 import time
 
-from firelab import gate
-from firelab.agents import reflex
-from firelab.clock import Clock
-from firelab.planner import plan
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.agents import reflex
+from fastenough.tasks.fire.clock import Clock
+from fastenough.tasks.fire.planner import plan
 
 
 def seen(world: gate.World, state: gate.State) -> dict:
@@ -34,7 +34,7 @@ def seen(world: gate.World, state: gate.State) -> dict:
 
 def thinker(body, clock: Clock, commit: bool = False, moving: bool = False, log: list | None = None,
             thoughts: list | None = None, allow_fire: bool = True, max_bag: int | None = None, caution: float = 1.0) -> list:
-    """Run one episode. Commands go to `log` as in firelab.agents; one dict per thought goes to `thoughts`."""
+    """Run one episode. Commands go to `log` as in fastenough.tasks.fire.agents; one dict per thought goes to `thoughts`."""
     log = [] if log is None else log
     thoughts = [] if thoughts is None else thoughts
     predict = gate.reflex_until if moving else gate.stand  # what the body is expected to do during the thought

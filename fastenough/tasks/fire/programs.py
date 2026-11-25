@@ -4,7 +4,7 @@ A program is a Python file that defines
 
     class Policy:
         def __init__(self, rules): ...      # rules: the parts of the observation that never change in an episode
-        def decide(self, obs): ...          # obs: firelab.interface.Session.observe(); returns a command, or None to stop
+        def decide(self, obs): ...          # obs: fastenough.tasks.fire.interface.Session.observe(); returns a command, or None to stop
 
 It plays alone: no model call, no file, no network, no clock, no randomness. The loader refuses a file that imports
 anything outside ALLOWED_IMPORTS or has no Policy with __init__ and decide. `decide` may keep memory in `self`; a new
@@ -20,7 +20,7 @@ import importlib.util
 import time
 from pathlib import Path
 
-from firelab.interface import Session
+from fastenough.tasks.fire.interface import Session
 
 ALLOWED_IMPORTS = ("math", "collections", "heapq", "itertools", "functools", "typing", "dataclasses", "numpy")
 RULE_KEYS = ("api_version", "costs", "end_share", "max_health", "total_value")

@@ -1,6 +1,6 @@
-"""Tests for firelab.interface (chunk 7a). One 6-item room with the fire frozen is built (about 6 s).
+"""Tests for fastenough.tasks.fire.interface (chunk 7a). One 6-item room with the fire frozen is built (about 6 s).
 
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_interface.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_interface.py
 """
 
 import dataclasses
@@ -8,12 +8,12 @@ import json
 
 import pytest
 
-import firelab  # noqa: F401
-from firelab.env import LEVEL2, FireLab3DEnv
-from firelab.fire import FireGridConfig
-from firelab.interface import Session
-from firelab.items import ItemRules
-from firelab.skills import Result, Skills
+import fastenough.tasks.fire  # noqa: F401
+from fastenough.tasks.fire.env import LEVEL2, FireLab3DEnv
+from fastenough.tasks.fire.fire import FireGridConfig
+from fastenough.tasks.fire.interface import Session
+from fastenough.tasks.fire.items import ItemRules
+from fastenough.tasks.fire.skills import Result, Skills
 
 ROOM = 2  # with 6 items: fire at (13, 3); items at (13, 10), (4, 9), (3, 3), (13, 4), (2, 1), (4, 7) worth 3, 3, 1, 8, 5, 5
 

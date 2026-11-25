@@ -1,14 +1,14 @@
 """The writing step of Liane's method on the fire task (A99; a port of scripts/compiled/compile.py).
 
-Given the program API (firelab/PROGRAM_API.md), the worked example (firelab/examples/reflex_program.py), the saved
+Given the program API (fastenough/tasks/fire/PROGRAM_API.md), the worked example (fastenough/tasks/fire/examples/reflex_program.py), the saved
 games of a slow model (run_rooms.py, agent `model`) and, from round 2 on, the previous round's program with its score
 in every validation room, a strong model is asked for a new program. The reply's program is written to
-policy_round<N>.py and must pass firelab.programs.audit_program before it may play. Offline: no simulator here;
-firelab/validate.py scores the file afterwards. `--dry-run` writes the prompt and stops, with no model call.
+policy_round<N>.py and must pass fastenough.tasks.fire.programs.audit_program before it may play. Offline: no simulator here;
+fastenough/tasks/fire/validate.py scores the file afterwards. `--dry-run` writes the prompt and stops, with no model call.
 
-Run:  python -m firelab.compile --games firelab/results/firelab_sim/haiku_train/games --out firelab/results/firelab_compiled/v1 \\
+Run:  python -m fastenough.research.fire.compile --games fastenough/research/fire/results/firelab_sim/haiku_train/games --out fastenough/research/fire/results/firelab_compiled/v1 \\
           --round 1 --key-file <path> [--dry-run]
-      ... --round 2 --previous firelab/results/firelab_compiled/v1/policy_round1.py --validation firelab/results/firelab_compiled/v1/validation_round1.json
+      ... --round 2 --previous fastenough/research/fire/results/firelab_compiled/v1/policy_round1.py --validation fastenough/research/fire/results/firelab_compiled/v1/validation_round1.json
 The key is given as a file path only; it is read once, handed to the client, and never printed or written anywhere.
 """
 
@@ -21,11 +21,12 @@ import sys
 import time
 from pathlib import Path
 
-from firelab.models import cost_usd, read_key
-from firelab.programs import audit_program
+from fastenough.research.fire.models import cost_usd, read_key
+from fastenough.tasks.fire.programs import audit_program
 
 HERE = Path(__file__).parent
-API_DOC, EXAMPLE = HERE / "PROGRAM_API.md", HERE / "examples" / "reflex_program.py"
+TASK_DIR = HERE.resolve().parents[1] / "tasks" / "fire"  # the program API and the example live with the task
+API_DOC, EXAMPLE = TASK_DIR / "PROGRAM_API.md", TASK_DIR / "examples" / "reflex_program.py"
 WRITER, EFFORT, MAX_TOKENS = "claude-opus-5-5", "medium", 16000  # medium and 16 000 keep three rounds under the 2-dollar limit (A99)
 SYSTEM = ("You write deterministic Python programs that control a rescue robot in a simulated room with a spreading fire. "
           "You get the API document, a working example program, recorded games of a slow language-model agent (what it saw, "

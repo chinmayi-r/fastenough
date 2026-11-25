@@ -17,13 +17,13 @@ StatusType = Type("FireLabStatus")
 JOBS = (None, "pick", "drop")  # the status feature "job" is an index into this
 
 FIRELAB_TYPE_FEATURES: dict[Type, list[str]] = dict(Kinematic3DEnvTypeFeatures)
-# x, y: the cell centre in metres; state: firelab.fire NORMAL / BURNING / BURNT / BLOCKED as a float.
+# x, y: the cell centre in metres; state: fastenough.tasks.fire.fire NORMAL / BURNING / BURNT / BLOCKED as a float.
 FIRELAB_TYPE_FEATURES[FireCellType] = ["x", "y", "state"]
 # tick: env steps since reset; health: robot health (A59); coverage: FireGrid.coverage(); level: 1 or 2.
 # job: 0 none, 1 pick, 2 drop (JOBS); job_item: the item being picked, else -1; job_left: ticks until it is done.
 FIRELAB_TYPE_FEATURES[StatusType] = ["tick", "health", "coverage", "level", "job", "job_item", "job_left"]
 # x, y: centre of the cell the item lay in at reset; value: worth now; start: worth at reset;
-# where: firelab.items FLOOR / BAG / SAVED / LOST as a float.
+# where: fastenough.tasks.fire.items FLOOR / BAG / SAVED / LOST as a float.
 FIRELAB_TYPE_FEATURES[ItemType] = ["x", "y", "value", "start", "where"]
 
 

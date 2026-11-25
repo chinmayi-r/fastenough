@@ -1,14 +1,14 @@
-"""Tests for firelab.items (chunk 3f-1): every rule is compared with the rule check, firelab/gate.py.
+"""Tests for fastenough.tasks.fire.items (chunk 3f-1): every rule is compared with the rule check, fastenough/tasks/fire/gate.py.
 
-No simulator. Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_items.py
+No simulator. Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/tasks/fire/tests/test_items.py
 """
 
 import math
 
 import pytest
 
-from firelab import gate
-from firelab.items import BAG, FLOOR, LOST, SAVED, ItemRules, Items
+from fastenough.tasks.fire import gate
+from fastenough.tasks.fire.items import BAG, FLOOR, LOST, SAVED, ItemRules, Items
 
 MAIN = gate.Task(items=8, values=(1, 2, 3, 5, 8), layout="one_wide", clearance=True, reach=1, bag=True, hp_loss=2.0)
 

@@ -1,6 +1,6 @@
-"""Worked example of a program (firelab/programs.py): the official reflex, written against the observation.
+"""Worked example of a program (fastenough/tasks/fire/programs.py): the official reflex, written against the observation.
 
-It decides exactly as firelab.agents.reflex does (tested in firelab/test_programs.py), so the reflex's scores apply
+It decides exactly as fastenough.tasks.fire.agents.reflex does (tested in fastenough/tasks/fire/tests/test_programs.py), so the reflex's scores apply
 to it. A compiled program has this shape: one class Policy with __init__(rules) and decide(obs), nothing imported
 beyond the allowed list.
 

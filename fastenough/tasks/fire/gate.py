@@ -22,7 +22,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
-from firelab.fire import BLOCKED, BURNING, FireGrid, FireGridConfig
+from fastenough.tasks.fire.fire import BLOCKED, BURNING, FireGrid, FireGridConfig
 
 NX, NY = FireGridConfig().shape
 STEP_TICKS = 4  # one 0.2 m cell at 0.05 m per tick (A57)

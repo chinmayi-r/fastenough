@@ -1,9 +1,9 @@
-"""Tests for firelab.fire (chunk 1). Run: venv_kinder\\Scripts\\python.exe -m pytest firelab -q"""
+"""Tests for fastenough.tasks.fire.fire (chunk 1). Run: venv_kinder\\Scripts\\python.exe -m pytest fastenough -q"""
 
 import numpy as np
 import pytest
 
-from firelab.fire import BLOCKED, BURNING, NORMAL, FireGrid, FireGridConfig
+from fastenough.tasks.fire.fire import BLOCKED, BURNING, NORMAL, FireGrid, FireGridConfig
 
 
 def _grid(p: float, seed: int = 0) -> FireGrid:

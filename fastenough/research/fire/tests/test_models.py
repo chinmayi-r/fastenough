@@ -1,6 +1,6 @@
-"""Tests for firelab.models (chunk 8a). No network and no simulator: both models are driven through stand-ins.
+"""Tests for fastenough.research.fire.models (chunk 8a). No network and no simulator: both models are driven through stand-ins.
 
-Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q firelab/test_models.py
+Run: venv_kinder\\Scripts\\python.exe -m pytest -p no:cacheprovider -q fastenough/research/fire/tests/test_models.py
 """
 
 import urllib.error
@@ -8,7 +8,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from firelab.models import Answer, Claude, Fake, Jev, cost_usd, make_model, parse_letter, read_key
+from fastenough.research.fire.models import Answer, Claude, Fake, Jev, cost_usd, make_model, parse_letter, read_key
 
 OPTIONS = ["get item 3", "go home", "wait 10 ticks"]
 
