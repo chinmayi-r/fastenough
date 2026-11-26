@@ -44,19 +44,22 @@ of the repository with `PYTHONPATH` set to it:
 
 ```
 python -m pytest -q fastenough
-python -m fastenough.tasks.fire.validate --program fastenough/tasks/fire/examples/reflex_program.py --first 50 --rooms 5 --out my_program.json
+python -m fastenough.tasks.fire.run --agents random reflex planner --first 0 --rooms 5 --out my_run
+python -m fastenough.tasks.fire.run --program fastenough/tasks/fire/examples/reflex_program.py --first 50 --rooms 5 --out my_program_run
 python -m fastenough.research.fire.run_rooms --tag my_run --agents random reflex --first 0 --rooms 5
 ```
 
-- The second line plays a program and the reflex on the same rooms and writes the scores to the file you name.
-- The third line is the research runner. A run named `my_run` writes into
+- The second line plays the three baselines and writes `rows.csv` and `summary.json` into the folder you name.
+  **This runner is provisional:** it was built from the fire task alone, and its settings and files may change.
+- The third line plays a program beside the reflex in the same rooms.
+- The fourth line is the research runner, the one every stored result comes from. A run named `my_run` writes into
   `fastenough/research/fire/results/firelab_sim/my_run/`. `--help` lists every setting.
 
 ## How to add an agent
 
 Write a program: one Python file with a class `Policy` that has `decide(obs)`. What it sees and what it may answer
 is in [PROGRAM_API.md](fastenough/tasks/fire/PROGRAM_API.md). A worked example is
-[examples/reflex_program.py](fastenough/tasks/fire/examples/reflex_program.py). Play it with the second line above.
+[examples/reflex_program.py](fastenough/tasks/fire/examples/reflex_program.py). Play it with the third line above.
 
 ## The agents that exist
 

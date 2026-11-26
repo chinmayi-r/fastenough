@@ -300,3 +300,25 @@ One section per chunk of PLAN.md. Each says what the code does, where it lives a
 - *The call follows the claude-api skill's Python reference:* streamed with `messages.stream` and `get_final_message`, effort set through `output_config`, no thinking setting, stop reason checked before the text is read, dollars worked out from the usage.
 - *Haiku needed no change to the call, only a price.* `firelab/models.py` sends the same request to any Claude model; the cost table had no entry for `claude-haiku-5-5`, which would have stopped the run at the first row. It has never been called for real; the first real call is on Della.
 - *A spending guard in the script.* Before each writing round the script adds up Haiku's and the writer's dollars and writes no further round once they pass 1.60, so the list stays under the 2-dollar limit.
+
+## The plain runner, provisional (Nov 26)
+
+**What it is.** `fastenough/tasks/fire/run.py`: one command that plays random, the reflex, the reference planner or a program in the simulator and writes one row per room and agent into a folder the user names. It imports nothing from `fastenough/research`. CR asked for it to be built now and marked provisional (PLAN.md section 10).
+
+**Why it exists.** The research runner, `fastenough/research/fire/run_rooms.py`, does two jobs: it plays agents in rooms, and it carries the experiments' extras (clocks, model calls, dollar counts, saved games). It is in `research`, which is removed at a dataset release. After that, nothing could play random or the planner. This file is the first job alone.
+
+**Where it lives.** `fastenough/tasks/fire/run.py` (128 lines): `AGENTS`, `COLUMNS`, `play_room`, `play`, `summary`, `write`, `main`. `fastenough/tasks/fire/tests/test_run.py` (82 lines, 4 tests). `run_rooms.py` and `validate.py` are not changed.
+
+**What "provisional" means here.** Built from the fire task alone. The settings and the two files it writes may change when a second task shows what a shared runner needs. The word is in the file's first line, in `summary.json` (`"provisional": true`) and in the README. No stored result comes from this file.
+
+**Why this way, against the alternatives.**
+- *A new small file, not `run_rooms.py` cut in two.* Every table script and three test files read what `run_rooms.py` writes. Cutting it risks changing the stored format. The cost is a second way to play the same agents; the test below holds the two to the same scores through the shared functions.
+- *It calls the same functions the research runner calls:* `agents.random_agent` with the same seed (10 000 + room), `agents.reflex`, `thinkers.thinker` with a clock that is off, `programs.run_program`. It holds no game logic of its own.
+- *`planner` is the research runner's `always` with the clock off.* One reference, with thinking free. No clock setting, no caution, no bag limit: those are research settings and stay in `run_rooms.py`.
+- *The output folder has no default.* `--out` must be given, so a user's run never lands among the research results. A folder that already holds `rows.csv` is refused before any room is played.
+- *`decide_s` is empty for random and the reflex.* Their time to decide is not measured, so no number is written. For the planner it is the measured search time; for a program, the time inside `decide`. It is recorded and not charged to the robot.
+- *Simulator only, one process, no resume, no saved games.* The rule check's board, parallel rooms and the saved games stay in `run_rooms.py`.
+
+**Tests.** Rooms 3 and 4 with 6 items: one row per room and agent with every column; the reflex and the planner score and take the same ticks as when called directly; the example program equals the reflex with nothing illegal; the summary's means and gaps; the command writes both files, refuses a folder that holds a run, and refuses to run with nothing to play.
+
+**Not checked yet.** The scores on the stored rooms: rooms 0 to 49 with 8 items against `first_run.csv` (random, reflex) and `run1_off` (planner). That is a run and waits for CR's yes.

@@ -315,7 +315,7 @@ Defaults I will use unless CR says otherwise: history by `git subtree split`; I 
 - **The Della chat** reads only what is on Della. It needs its own clone there (step 2). Not known: whether the login that pulls today's repository on Della also works for a new private repository.
 - **Liane, and any Claude she uses,** see exactly what is pushed to GitHub and nothing else: no memory, no `CLAUDE.md` from this laptop. If her Claude should follow the same rules, a short `CLAUDE.md` has to be in repository 2 itself. Not in step 1; for CR to decide.
 
-## 10. The plain runner (written Nov 26, 07:50; plan only, no code; my advice is to wait, see 10.4)
+## 10. The plain runner (written Nov 26, 07:50; BUILT Nov 26 as provisional on CR's word, see 10.5)
 
 ### 10.1 What exists today, and the one gap
 
@@ -356,3 +356,7 @@ A run, so it needs CR's yes: the new runner on rooms 0 to 49 with random, reflex
 - Writing it now adds a second way to play the same agents, and two ways can drift apart.
 
 Open questions if CR wants it now: the name `planner` against `always`; whether a program's own decision time should be charged in ticks (today it is recorded and not charged).
+
+### 10.5 Built on Nov 26, provisional
+
+CR, after reading 10.4: "build it now, mark as provisional". Built as planned in 10.2, with one difference: `--agents` defaults to the reflex, so a program plays beside the reflex without naming it. The two open questions of 10.4 are answered for now, provisionally and by me: the name is `planner`; a program's decision time is recorded and not charged. The check of 10.3 on the stored rooms is not run. DESIGN.md has the section.

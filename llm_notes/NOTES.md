@@ -1749,3 +1749,13 @@ CR confirmed in chat that the new clone on Della is `~/fastenough` (beside the H
 ## Nov 26 (07:47): the step 2 message sent to the Della session on CR's word ("Yes, send it")
 
 Sent to the session "Della: cache fix, rule array, clocked sweeps" with the text shown to CR, plus one line saying where to report. The send reached that session; whether it was read is not confirmed, because that route reports nothing back. Nothing is known to have run on Della yet. When its report comes: check the test count (159), the 2-room scores against `first_run.csv`, the 5-room program scores against `della_test_rooms_50_99_typed.csv`, and the list of result files that differ from the typed copies.
+
+## Nov 26 (07:55 to 08:07): the plain runner built, provisional
+
+CR: "build it now, mark as provisional". First CR asked whether a runner was not already there; the answer is in PLAN 10.1 (two exist; the gap opens only when `research` is removed).
+- New: `fastenough/tasks/fire/run.py` (128 lines) and `fastenough/tasks/fire/tests/test_run.py` (82 lines, 4 tests). 210 new lines of code. `run_rooms.py` and `validate.py` are not changed. README: one new line under "How to run it", marked provisional. DESIGN.md: one section. PLAN.md: section 10 marked built, with 10.5.
+- `..env_kinder\Scripts\python.exe -m pytest -p no:cacheprovider -v fastenough/tasks/fire/tests/test_run.py fastenough/test_layers.py` : 6 passed in 76 s.
+- `... -m pytest -p no:cacheprovider -q fastenough` : 163 passed in 381 s (the 159 before and the 4 new).
+- Decided without CR, to review: the planner is named `planner` in this runner (it is `always` with the clock off in the research runner); a program's decision time is recorded and not charged; `--agents` defaults to the reflex.
+- Not run: the runner on the stored rooms 0 to 49 against `first_run.csv` and `run1_off`. Not run: anything on Della; no report has come from the Della session since the message of 07:47.
+- The message to the chat "HAZARD/ThreeDWorld requirements audit" asking about the piles was held there and expired; it was never delivered. CR said its view is not needed.
