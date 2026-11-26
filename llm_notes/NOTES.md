@@ -1759,3 +1759,12 @@ CR: "build it now, mark as provisional". First CR asked whether a runner was not
 - Decided without CR, to review: the planner is named `planner` in this runner (it is `always` with the clock off in the research runner); a program's decision time is recorded and not charged; `--agents` defaults to the reflex.
 - Not run: the runner on the stored rooms 0 to 49 against `first_run.csv` and `run1_off`. Not run: anything on Della; no report has come from the Della session since the message of 07:47.
 - The message to the chat "HAZARD/ThreeDWorld requirements audit" asking about the piles was held there and expired; it was never delivered. CR said its view is not needed.
+
+## Nov 26 (11:27 to 11:33): the plain runner on stored rooms, 3 rooms done and equal; the 50-room check NOT run, the laptop is 14 times slower on battery
+
+On CR's yes ("Yes, run check"). 3 rooms first, to time it: `python -m fastenough.tasks.fire.run --agents random reflex planner --first 0 --rooms 3 --out <scratch folder>`, laptop, no model.
+- **Result, rooms 0 to 2, all 9 rows equal the stored rows** in score and ticks (and health for the planner): random 0.0 / 0.0 / 0.0417 and the reflex 0.625 / 0.619 / 0.7083 as in `first_run.csv`; the planner 0.9844 / 0.981 / 1.0 with 251 / 195 / 355 ticks as the agent `always` in `run1_off`.
+- **Time: 6 min 5 s for 3 rooms.** On Nov 23 the planner run of 50 rooms took 2 min 54 s. So I did not start the 50 rooms: at this speed they would take about 100 minutes, not the 5 to 10 I told CR, and past the 20-minute limit for laptop runs.
+- **Cause, measured.** `run_rooms.reference` times one fixed plan (586 search steps). Stored with the Nov 23 run: 0.0832 s, 0.142 ms per step. Now: 1.1397 s, 1.945 ms per step. The laptop is 13.7 times slower. It is on battery (status 1, discharging) at 44 %.
+- **This also explains A103 (f).** The two test runs of Nov 25 that did not finish were on a low battery (27 % when checked). They were slow, not stuck. Rule from now: before timing anything on the laptop, check that it is plugged in and time the reference plan.
+- Not run: rooms 3 to 49 with the new runner. Still no report from the Della session.
