@@ -314,3 +314,45 @@ Defaults I will use unless CR says otherwise: history by `git subtree split`; I 
 - **The chat in the vault folder** cannot read it unless CR adds the folder to that chat. It does not need to.
 - **The Della chat** reads only what is on Della. It needs its own clone there (step 2). Not known: whether the login that pulls today's repository on Della also works for a new private repository.
 - **Liane, and any Claude she uses,** see exactly what is pushed to GitHub and nothing else: no memory, no `CLAUDE.md` from this laptop. If her Claude should follow the same rules, a short `CLAUDE.md` has to be in repository 2 itself. Not in step 1; for CR to decide.
+
+## 10. The plain runner (written Nov 26, 07:50; plan only, no code; my advice is to wait, see 10.4)
+
+### 10.1 What exists today, and the one gap
+
+| runner | where | what it plays | what is missing |
+|---|---|---|---|
+| `run_rooms.py` | `fastenough/research/fire/` | every agent: random, reflex, the three planners, the two model agents; all clocks; saved games | it is in `research`, so it leaves at a release; it imports the model clients |
+| `validate.py` | `fastenough/tasks/fire/` | a program, and the reflex beside it | it does not play random or the planner |
+
+So while `research` is in the repository, nothing is missing: `run_rooms.py` plays everything. The gap opens only when `research` is removed: then no command plays random or the reference planner, and the three numbers that show the task is worth using (random 0.04, reflex 0.60, planner 0.82) cannot be reproduced from what is left.
+
+### 10.2 What the chunk would be
+
+One new file, `fastenough/tasks/fire/run.py`, about 110 lines, that imports nothing from `research`:
+- `python -m fastenough.tasks.fire.run --agents random reflex planner --first 0 --rooms 5 --out my_run`
+- `python -m fastenough.tasks.fire.run --program my_policy.py --agents reflex --first 50 --rooms 5 --out my_run`
+- It writes `rows.csv` (one row per room and agent: score, ticks, health, died, commands, failed, illegal, errors) and `summary.json` (the mean per agent, and the gap to the reflex with its interval when the reflex played the same rooms) into the folder the user names. It refuses to write over an existing `rows.csv`.
+- `planner` is the agent `always` of the research runner with the clock off. No clock settings, no models, no saved games, no resume, simulator only.
+
+```
+fastenough/tasks/fire/
+├── run.py              NEW   AGENTS, play_room, play, summary, write, main
+├── tests/test_run.py   NEW   about 70 lines: one 6-item room; each agent's row; the reflex and the example program
+│                             score the same; the planner row equals thinkers.thinker called directly; no overwrite
+├── validate.py         not changed (Liane's loop and three scripts read its file format)
+└── agents.py  thinkers.py  programs.py  interface.py  skills.py  env.py  clock.py     used, not changed
+README.md               the "How to run it" lines
+llm_notes/DESIGN.md     one section
+```
+
+### 10.3 The check after building it
+
+A run, so it needs CR's yes: the new runner on rooms 0 to 49 with random, reflex and planner, compared room by room with the stored rows (`first_run.csv` for random and the reflex, `run1_off` for the planner). On Nov 23 the planner run of 50 rooms took 2 min 54 s on the laptop with the board twin; 3 rooms first to time it.
+
+### 10.4 My advice: not now
+
+- Nothing needs it this week. Liane can use `run_rooms.py`, which is in the repository she clones.
+- It is only needed at a release, or when a second task arrives and the two tasks should be run the same way. By then the shape of a second task will say what the runner's settings should be.
+- Writing it now adds a second way to play the same agents, and two ways can drift apart.
+
+Open questions if CR wants it now: the name `planner` against `always`; whether a program's own decision time should be charged in ticks (today it is recorded and not charged).
