@@ -1,0 +1,6 @@
+{
+ "round": 1,
+ "model": "claude-opus-5-5",
+ "prompt_chars": 131080,
+ "dry_run": true
+}
