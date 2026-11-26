@@ -321,4 +321,4 @@ One section per chunk of PLAN.md. Each says what the code does, where it lives a
 
 **Tests.** Rooms 3 and 4 with 6 items: one row per room and agent with every column; the reflex and the planner score and take the same ticks as when called directly; the example program equals the reflex with nothing illegal; the summary's means and gaps; the command writes both files, refuses a folder that holds a run, and refuses to run with nothing to play.
 
-**Not checked yet.** The scores on the stored rooms: rooms 0 to 49 with 8 items against `first_run.csv` (random, reflex) and `run1_off` (planner). That is a run and waits for CR's yes.
+**Checked on the stored rooms (Nov 26, 15:12).** Rooms 0 to 49 with 8 items: all 150 rows equal the stored rows in score, ticks, health and number of commands (`first_run.csv` for random and the reflex, `run1_off` for the planner). Means 0.0408, 0.5979, 0.8157. Not checked: a program on these rooms with this runner; anything on Della.

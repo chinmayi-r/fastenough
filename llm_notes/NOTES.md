@@ -1768,3 +1768,21 @@ On CR's yes ("Yes, run check"). 3 rooms first, to time it: `python -m fastenough
 - **Cause, measured.** `run_rooms.reference` times one fixed plan (586 search steps). Stored with the Nov 23 run: 0.0832 s, 0.142 ms per step. Now: 1.1397 s, 1.945 ms per step. The laptop is 13.7 times slower. It is on battery (status 1, discharging) at 44 %.
 - **This also explains A103 (f).** The two test runs of Nov 25 that did not finish were on a low battery (27 % when checked). They were slow, not stuck. Rule from now: before timing anything on the laptop, check that it is plugged in and time the reference plan.
 - Not run: rooms 3 to 49 with the new runner. Still no report from the Della session.
+
+## Nov 26 (14:59 to 15:12): the plain runner on rooms 0 to 49, every row equal to the stored rows
+
+On CR's word ("Plugged in, run it"). Laptop, no model, one process: `python -m fastenough.tasks.fire.run --agents random reflex planner --first 0 --rooms 50 --out <scratch folder>`.
+- **Before the run.** Battery status 2 (on mains), 80 %. The fixed plan of `run_rooms.reference` took 0.1656, 0.1582 and 0.1525 s in three tries (0.26 to 0.28 ms per search step). That is about 1.9 times slower than Nov 23 (0.0832 s) and 7 times faster than this morning on battery. Not explained: why it is still 1.9 times slower on mains; the power plan is "Balanced" and the battery was charging.
+- **Time: 12 min 48 s** for 150 rows. I told CR 5 to 10 minutes, then 10 to 15 after timing the plan.
+- **Result: 150 of 150 rows equal the stored rows** in score, ticks, health and number of commands. Compared by a script that reads both files and plays nothing.
+
+| agent | rooms | mean score, new runner | mean score, stored | rooms that differ | stored file |
+|---|---|---|---|---|---|
+| random | 50 | 0.0408 | 0.0408 | 0 | `first_run.csv` |
+| reflex | 50 | 0.5979 | 0.5979 | 0 | `first_run.csv` |
+| planner | 50 | 0.8157 | 0.8157 | 0 | `run1_off/rows_000.csv`, agent `always`, clock off |
+
+- The new runner's own summary: planner minus reflex +0.2178, interval +0.1228 to +0.3013, ahead in 42 rooms, level in 2, behind in 6; the robot dies in 6 planner rooms and 7 random rooms.
+- What this shows: the provisional runner in `tasks` reproduces the three baseline numbers without importing anything from `research`. What it does not show: anything about a program on these rooms with this runner (only the 2-room test covers that), and nothing on Della.
+- The run's two files are in the session's scratch folder and are not kept in the repository: no stored result comes from this runner.
+- Still no report from the Della session since the message of 07:47.
