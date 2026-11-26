@@ -1745,3 +1745,7 @@ CR accepted step 1 of PLAN section 9 ("Yes, switch", after the replay check pass
 ## Nov 26 (07:45): the Della folder for this repository is confirmed; the message for the Della chat is drafted, not sent
 
 CR confirmed in chat that the new clone on Della is `~/fastenough` (beside the HAZARD clone `~/thinking-fast-hazard`). Step 2 of PLAN section 9 is drafted as a message for the Della session: clone, the setup script with the existing environment `~/iw-thinking-fast/pyk310`, the test suite on a compute node, the saved games copied from the old clone without overwriting, one 2-room run with no model and one 5-room replay of the kept program, each compared with stored rows. No model call, no key, nothing deleted, nothing pushed. Not sent until CR says so. Known side effect to watch: the setup script re-points the environment's editable install of kinder to the kindergarden folder inside `~/fastenough` (same commit 86c55a4).
+
+## Nov 26 (07:47): the step 2 message sent to the Della session on CR's word ("Yes, send it")
+
+Sent to the session "Della: cache fix, rule array, clocked sweeps" with the text shown to CR, plus one line saying where to report. The send reached that session; whether it was read is not confirmed, because that route reports nothing back. Nothing is known to have run on Della yet. When its report comes: check the test count (159), the 2-room scores against `first_run.csv`, the 5-room program scores against `della_test_rooms_50_99_typed.csv`, and the list of result files that differ from the typed copies.
